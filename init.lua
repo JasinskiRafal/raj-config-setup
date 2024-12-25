@@ -1,10 +1,9 @@
--- Include all options that are not associated with one plugin
 require 'options'
 
--- Include all vim globals definitions that are not associated with one plugin
 require 'globals'
 
--- Include all kaymappings that are not associated with one plugin
+require 'clipboard'
+
 require 'keymappings'
 
 --
