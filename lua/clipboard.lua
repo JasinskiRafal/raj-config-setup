@@ -18,4 +18,4 @@ vim.schedule(function()
   }
 end)
 
-vim.keymap.set('n', '<C-b>', 'C-v', { noremap = true })
+vim.keymap.set('n', '<C-b>', '<C-v>', { noremap = true })
