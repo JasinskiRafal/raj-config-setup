@@ -1,5 +1,4 @@
 require 'options'
-require 'globals'
 require 'keymappings'
 require 'autocommands'
 
@@ -17,7 +16,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- [[ Configure and install plugins ]]
 --
---  To check the current status of your plugins, run
+--  To chec the current status of your plugins, run
 --    :Lazy
 --
 --  You can press `?` in this menu for help. Use `:q` to close the window
@@ -28,7 +27,7 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup {
   {
-    import = 'plugins',
+    import = 'plugins.active',
   },
 }
 
