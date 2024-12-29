@@ -1,6 +1,7 @@
 require 'options'
 require 'keymappings'
 require 'autocommands'
+require 'health'
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info

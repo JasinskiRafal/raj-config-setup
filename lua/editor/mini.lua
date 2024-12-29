@@ -11,7 +11,7 @@ return {
     'echasnovski/mini.ai',
     opts = {
       n_lines = 500,
-    }
+    },
   },
 
   -- Add/delete/replace surroundings (brackets, quotes, etc.)
@@ -23,26 +23,21 @@ return {
     'echasnovski/mini.surround',
   },
 
-  -- Simple and easy statusline.
-  --  You could remove this setup call if you don't like it,
-  --  and try some other statusline plugin
   {
-    'echasnovski/mini.statusline',
-    opts = {
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
-      section_location = function()
-        return '%2l:%-2v'
-      end,
-    },
+    'echasnovski/mini.pairs',
+    config = function()
+      require('mini.pairs').setup()
+    end,
+  },
+
+  {
+    'echasnovski/mini.trailspace',
   },
 
   {
     'echasnovski/mini.icons',
     config = function()
-      require("mini.icons").mock_nvim_web_devicons()
+      require('mini.icons').mock_nvim_web_devicons()
     end,
   },
   -- ... and there is more!
