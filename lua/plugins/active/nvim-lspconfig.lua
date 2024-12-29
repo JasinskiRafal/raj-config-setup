@@ -2,7 +2,6 @@ return {
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
-    enabled = false,
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
@@ -17,7 +16,7 @@ return {
       'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
-      require 'plugins.config.nvim-lspconfig'
+      require 'plugins.active.configs.nvim-lspconfig'
     end,
   },
 }

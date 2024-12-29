@@ -1,7 +1,6 @@
 return {
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
-    enabled = false,
     event = 'InsertEnter',
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
@@ -37,7 +36,7 @@ return {
       'hrsh7th/cmp-path',
     },
     config = function()
-      require 'plugins.config.nvim-cmp'
+      require 'plugins.active.configs.nvim-cmp'
     end,
   },
 }
