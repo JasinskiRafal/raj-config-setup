@@ -4,16 +4,16 @@ return {
   cmd = { 'ConformInfo' },
   keys = {
     {
-      '<leader>fmt',
+      '<leader>t',
       function()
         require('conform').format { async = true, lsp_format = 'fallback' }
       end,
       mode = '',
-      desc = '[F]or[M]a[T] buffer',
+      desc = 'Format[T] buffer',
     },
   },
   opts = {
-    notify_on_error = false,
+    notify_on_error = true,
     format_on_save = {
       timeout_ms = 500,
       lsp_format = 'fallback',
@@ -22,7 +22,8 @@ return {
       lua = { 'stylua' },
       cpp = { 'clang-format' },
       c = { 'clang-format' },
-      cmake = { 'cmake_format' },
+      cmake = { 'cmake-format' },
+      rust = { 'rustfmt' },
     },
   },
 }

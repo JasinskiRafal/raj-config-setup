@@ -28,9 +28,6 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup {
   {
-    'williamboman/mason.nvim',
-  },
-  {
     import = 'debugging',
   },
   {
@@ -40,7 +37,7 @@ require('lazy').setup {
     import = 'file-navigation',
   },
   {
-    import = 'programming',
+    import = 'development',
   },
 }
 

@@ -4,14 +4,15 @@ return {
     sort = {
       sorter = 'case_sensitive',
     },
-    view = {
-      width = 30,
-    },
+    view = {},
     renderer = {
       group_empty = true,
     },
     filters = {
       dotfiles = true,
+    },
+    update_focused_file = {
+      enable = true,
     },
   },
 }
