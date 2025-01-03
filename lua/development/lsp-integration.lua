@@ -1,27 +1,26 @@
 return {
   {
     'neovim/nvim-lspconfig',
+    keys = function()
+      return {
+        { 'gd', require('telescope.builtin').lsp_definitions, { desc = '[G]oto [D]efinition' } },
+        { 'gr', require('telescope.builtin').lsp_references, { desc = '[G]oto [R]eferences' } },
+        { 'gI', require('telescope.builtin').lsp_implementations, { desc = '[G]oto [I]mplementation' } },
+        { '<leader>D', require('telescope.builtin').lsp_type_definitions, { desc = 'Type [D]efinition' } },
+        { '<leader>ds', require('telescope.builtin').lsp_document_symbols, { desc = '[D]ocument [S]ymbols' } },
+        { '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = '[W]orkspace [S]ymbols' } },
+        { '<leader>rn', vim.lsp.buf.rename, { desc = '[R]e[n]ame' } },
+        { '<leader>ca', vim.lsp.buf.code_action, { desc = '[C]ode [A]ction', { 'n', 'x' } } },
+        { 'gD', vim.lsp.buf.declaration, { desc = '[G]oto [D]eclaration' } },
+      }
+    end,
     config = function()
-      local lspconfig_defaults = require('lspconfig').util.default_config
-      lspconfig_defaults.capabilities = vim.tbl_deep_extend('force', lspconfig_defaults.capabilities, require('cmp_nvim_lsp').default_capabilities())
-
-      vim.api.nvim_create_autocmd('LspAttach', {
-        desc = 'LSP actions',
-        callback = function(event)
-          local opts = { buffer = event.buf }
-
-          vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-          vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-          vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-          vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-          vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-          vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-          vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-          vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-          vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-          vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-        end,
-      })
+      local signs = { ERROR = '', WARN = '', INFO = '', HINT = '' }
+      local diagnostic_signs = {}
+      for type, icon in pairs(signs) do
+        diagnostic_signs[vim.diagnostic.severity[type]] = icon
+      end
+      vim.diagnostic.config { signs = { text = diagnostic_signs } }
     end,
   },
   {
@@ -34,6 +33,4 @@ return {
       },
     },
   },
-  { 'hrsh7th/cmp-nvim-lsp' },
-  { 'hrsh7th/nvim-cmp' },
 }
