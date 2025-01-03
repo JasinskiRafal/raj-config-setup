@@ -1,26 +1,79 @@
 return {
+  { 'hrsh7th/cmp-nvim-lsp' },
   {
-    'neovim/nvim-lspconfig',
-    keys = function()
-      return {
-        { 'gd', require('telescope.builtin').lsp_definitions, { desc = '[G]oto [D]efinition' } },
-        { 'gr', require('telescope.builtin').lsp_references, { desc = '[G]oto [R]eferences' } },
-        { 'gI', require('telescope.builtin').lsp_implementations, { desc = '[G]oto [I]mplementation' } },
-        { '<leader>D', require('telescope.builtin').lsp_type_definitions, { desc = 'Type [D]efinition' } },
-        { '<leader>ds', require('telescope.builtin').lsp_document_symbols, { desc = '[D]ocument [S]ymbols' } },
-        { '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = '[W]orkspace [S]ymbols' } },
-        { '<leader>rn', vim.lsp.buf.rename, { desc = '[R]e[n]ame' } },
-        { '<leader>ca', vim.lsp.buf.code_action, { desc = '[C]ode [A]ction', { 'n', 'x' } } },
-        { 'gD', vim.lsp.buf.declaration, { desc = '[G]oto [D]eclaration' } },
+    'hrsh7th/nvim-cmp',
+    dependencies = {
+      'hrsh7th/cmp-path',
+      'saadparwaiz1/cmp_luasnip',
+      {
+        'L3MON4D3/LuaSnip',
+        build = (function()
+          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
+            return
+          end
+          return 'make install_jsregexp'
+        end)(),
+      },
+    },
+
+    config = function()
+      local cmp = require 'cmp'
+      local luasnip = require 'luasnip'
+      luasnip.config.setup {}
+
+      cmp.setup {
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
+        completion = { completeopt = 'menu,menuone,noinsert' },
+
+        mapping = cmp.mapping.preset.insert {
+          ['<C-n>'] = cmp.mapping.select_next_item(),
+          ['<C-p>'] = cmp.mapping.select_prev_item(),
+
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+
+          ['<C-y>'] = cmp.mapping.confirm { select = true },
+          ['<C-Space>'] = cmp.mapping.complete {},
+
+          ['<C-l>'] = cmp.mapping(function()
+            if luasnip.expand_or_locally_jumpable() then
+              luasnip.expand_or_jump()
+            end
+          end, { 'i', 's' }),
+          ['<C-h>'] = cmp.mapping(function()
+            if luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
+            end
+          end, { 'i', 's' }),
+        },
+        sources = {
+          { name = 'nvim_lsp' },
+          { name = 'luasnip' },
+          { name = 'path' },
+        },
       }
     end,
+  },
+  {
+    'neovim/nvim-lspconfig',
     config = function()
-      local signs = { ERROR = '', WARN = '', INFO = '', HINT = '' }
-      local diagnostic_signs = {}
-      for type, icon in pairs(signs) do
-        diagnostic_signs[vim.diagnostic.severity[type]] = icon
-      end
-      vim.diagnostic.config { signs = { text = diagnostic_signs } }
+      vim.diagnostic.config {
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = '✘',
+            [vim.diagnostic.severity.WARN] = '',
+            [vim.diagnostic.severity.HINT] = '',
+            [vim.diagnostic.severity.INFO] = '',
+          },
+        },
+      }
+
+      local lspconfig_defaults = require('lspconfig').util.default_config
+      lspconfig_defaults.capabilities = vim.tbl_deep_extend('force', lspconfig_defaults.capabilities, require('cmp_nvim_lsp').default_capabilities())
     end,
   },
   {
