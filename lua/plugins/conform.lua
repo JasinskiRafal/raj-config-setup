@@ -1,17 +1,12 @@
+-- this is a formatting plugin based on installed formatters
 return {
   'stevearc/conform.nvim',
+  dependencies = {
+    'williamboman/mason.nvim',
+    config = true,
+  },
   event = { 'BufWritePre' },
   cmd = { 'ConformInfo' },
-  keys = {
-    {
-      '<leader>t',
-      function()
-        require('conform').format { async = true, lsp_format = 'fallback' }
-      end,
-      mode = '',
-      desc = 'Format[T] buffer',
-    },
-  },
   opts = {
     notify_on_error = true,
     format_on_save = {

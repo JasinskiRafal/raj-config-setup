@@ -78,12 +78,22 @@ return {
   },
   {
     'williamboman/mason-lspconfig.nvim',
+    dependencies = {
+    'williamboman/mason.nvim',
+    },
     opts = {
       handlers = {
         function(server_name)
           require('lspconfig')[server_name].setup {}
         end,
       },
+    },
+  },
+  {
+    'Civitasv/cmake-tools.nvim',
+    opts = {
+      cmake_build_directory = 'build',
+      cmake_generate_options = { '-D', 'CMAKE_EXPORT_COMPILE_COMMANDS=1' },
     },
   },
 }

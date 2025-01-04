@@ -1,3 +1,4 @@
+-- File tree as a sidebar plugin
 return {
   'nvim-tree/nvim-tree.lua',
   opts = {
@@ -7,9 +8,6 @@ return {
     view = {},
     renderer = {
       group_empty = true,
-    },
-    filters = {
-      dotfiles = true,
     },
     update_focused_file = {
       enable = true,
