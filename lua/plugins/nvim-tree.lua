@@ -5,7 +5,12 @@ return {
     sort = {
       sorter = 'case_sensitive',
     },
-    view = {},
+    git = {
+      ignore = true,
+    },
+    filters = {
+      git_ignored = true,
+    },
     renderer = {
       group_empty = true,
     },
