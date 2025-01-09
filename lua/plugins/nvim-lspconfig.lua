@@ -1,6 +1,9 @@
 return {
   {
     'neovim/nvim-lspconfig',
+    dependencies = {
+      { 'hrsh7th/cmp-nvim-lsp', config = true },
+    },
     config = function()
       vim.diagnostic.config {
         signs = {
