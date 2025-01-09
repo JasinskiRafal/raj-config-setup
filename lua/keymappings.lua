@@ -8,12 +8,40 @@ local live_grep_callback = function()
   }
 end
 
-local conform_callback = function()
+local function conform_format()
   require('conform').format { async = true, lsp_format = 'fallback' }
 end
 
-local cbff_callback = function()
+local function current_buffer_fuzzy_find()
   require('telescope.builtin').current_buffer_fuzzy_find()
+end
+
+local function debugger_continue()
+  require('dap').continue()
+end
+
+local function debugger_step_into()
+  require('dap').step_into()
+end
+
+local function debugger_step_over()
+  require('dap').step_over()
+end
+
+local function debugger_step_out()
+  require('dap').step_out()
+end
+
+local function debugger_toggle_breakpoint()
+  require('dap').toggle_breakpoint()
+end
+
+local function debugger_set_breakpoint()
+  require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+end
+
+local function debugger_toggle_ui()
+  require('dapui').toggle()
 end
 
 -- helper function for mapping
@@ -48,7 +76,7 @@ map('<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 map('<leader>as', ':ASToggle<CR>', { desc = 'Toggle [A]uto [S]ave<CR>' })
 
-map('<leader>t', conform_callback, { desc = 'Format[T] buffer' }, '')
+map('<leader>t', conform_format, { desc = 'Format[T] buffer' }, '')
 
 map('<leader>lg', '<cmd>LazyGit<cr>', { desc = '[L]azy[G]it' }, '')
 
@@ -63,7 +91,7 @@ map('<leader>fr', require('telescope.builtin').resume, { desc = '[F]ind [R]estor
 map('<leader>f.', require('telescope.builtin').oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
 map('<leader><leader>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
 
-map('<leader>/', cbff_callback, { desc = '[/] Fuzzily search in current buffer' })
+map('<leader>/', current_buffer_fuzzy_find, { desc = '[/] Fuzzily search in current buffer' })
 
 map('<leader>f/', live_grep_callback, { desc = '[F]ind [/] in Open Files' })
 
@@ -78,3 +106,11 @@ map('<leader>ds', vim.lsp.buf.document_symbol, { desc = '[D]ocument [S]ymbols' }
 map('<leader>ws', vim.lsp.buf.workspace_symbol, { desc = '[W]orkspace [S]ymbols' })
 map('<leader>rn', vim.lsp.buf.rename, { desc = '[R]e[n]ame' })
 map('<leader>ca', vim.lsp.buf.code_action, { desc = '[C]ode [A]ction' }, { 'n', 'x' })
+
+map('<F5>', debugger_continue, { desc = 'Debug: Start/Continue' })
+map('<F6>', debugger_toggle_ui, { desc = 'Debug: See last session result.' })
+map('<F8>', debugger_step_over, { desc = 'Debug: Step Over' })
+map('<F9>', debugger_step_into, { desc = 'Debug: Step Into' })
+map('<F10>', debugger_step_out, { desc = 'Debug: Step Out' })
+map('<leader>b', debugger_toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
+map('<leader>B', debugger_set_breakpoint, { desc = 'Debug: Set Breakpoint' })
