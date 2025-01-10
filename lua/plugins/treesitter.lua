@@ -9,6 +9,7 @@ return {
         enable = true,
       },
       indent = { enable = true },
+      ensure_installed = { 'c', 'cpp', 'python', 'lua', 'cmake', 'meson', 'json', 'dockerfile' },
     },
   },
 }
