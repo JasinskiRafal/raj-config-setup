@@ -2,6 +2,11 @@
 return {
   'nvim-tree/nvim-tree.lua',
   opts = {
+    actions = {
+      change_dir = {
+        restrict_above_cwd = true,
+      },
+    },
     sort = {
       sorter = 'case_sensitive',
     },
