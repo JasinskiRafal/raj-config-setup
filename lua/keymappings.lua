@@ -44,16 +44,20 @@ local function debugger_toggle_ui()
   require('dapui').toggle()
 end
 
+local find_config_files_callback = function()
+  require('telescope.builtin').find_files { cwd = vim.fn.stdpath 'config' }
+end
+
+local function find_all_files_callback()
+  require('telescope.builtin').find_files { hidden = true, no_ignore = true }
+end
+
 -- helper function for mapping
 local function map(button, command, options, mode)
   options = options or {}
   mode = mode or { 'n' }
 
   vim.keymap.set(mode, button, command, options)
-end
-
-local find_config_files_callback = function()
-  require('telescope.builtin').find_files { cwd = vim.fn.stdpath 'config' }
 end
 
 -- Actual mapping of keys
@@ -83,6 +87,7 @@ map('<leader>lg', '<cmd>LazyGit<cr>', { desc = '[L]azy[G]it' }, '')
 map('<leader>fh', require('telescope.builtin').help_tags, { desc = '[F]ind [H]elp' })
 map('<leader>fk', require('telescope.builtin').keymaps, { desc = '[F]ind [K]eymaps' })
 map('<leader>ff', require('telescope.builtin').find_files, { desc = '[F]ind [F]iles' })
+map('<leader>fa', find_all_files_callback, { desc = '[F]ind [A]ll' })
 map('<leader>fs', require('telescope.builtin').builtin, { desc = '[F]ind Telescope' })
 map('<leader>fw', require('telescope.builtin').grep_string, { desc = '[F]ind current [W]ord' })
 map('<leader>fg', require('telescope.builtin').live_grep, { desc = '[F]ind by [G]rep' })
