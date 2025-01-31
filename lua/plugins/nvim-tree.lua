@@ -14,7 +14,7 @@ return {
       ignore = true,
     },
     filters = {
-      git_ignored = false,
+      git_ignored = true,
     },
     renderer = {
       group_empty = true,
