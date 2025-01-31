@@ -21,6 +21,7 @@ return {
         'debugpy',
         'pylint',
         'autopep8',
+        'zls',
       },
       auto_update = true,
       run_on_start = true,
