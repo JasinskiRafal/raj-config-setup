@@ -81,6 +81,7 @@ map('<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 map('<leader>as', ':ASToggle<CR>', { desc = 'Toggle [A]uto [S]ave<CR>' })
 
 map('<leader>t', conform_format, { desc = 'Format[T] buffer' }, '')
+map('<leader>vt', '<C-w><C-v>:terminal<CR>', { desc = 'Open [T]erminal in [V]ertical window' })
 
 map('<leader>lg', '<cmd>LazyGit<cr>', { desc = '[L]azy[G]it' }, '')
 
