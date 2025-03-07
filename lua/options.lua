@@ -58,6 +58,7 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
 vim.diagnostic.config {
+  virtual_text = true,
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = '✘',
