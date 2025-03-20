@@ -57,6 +57,9 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Set the default shell to run to bash
+vim.opt.shell = '/bin/bash'
+
 vim.diagnostic.config {
   virtual_text = true,
   signs = {
