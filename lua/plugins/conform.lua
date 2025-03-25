@@ -19,6 +19,7 @@ return {
       c = { 'clang-format' },
       cmake = { 'cmake-format' },
       rust = { 'rustfmt' },
+      python = { 'autopep8' },
     },
   },
 }
